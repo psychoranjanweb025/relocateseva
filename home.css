@@ -1,0 +1,207 @@
+/* =========================
+   BASIC SETTINGS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #071827;
+    color: white;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    padding: 20px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.35);
+}
+
+
+/* LOGO */
+
+.logo a {
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #00bfff;
+}
+
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: #00bfff;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+    min-height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background:
+        linear-gradient(
+            rgba(7, 24, 39, 0.75),
+            rgba(7, 24, 39, 0.9)
+        ),
+        url("home-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* HOME CONTENT */
+
+.home-content {
+    max-width: 800px;
+}
+
+.home-content h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.home-content h1 span {
+    color: #00bfff;
+}
+
+.home-content p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #dbeafe;
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 14px 28px;
+
+    background: #00bfff;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background: #008dcc;
+}
+
+.btn.second {
+    background: transparent;
+    border: 1px solid #00bfff;
+}
+
+.btn.second:hover {
+    background: #00bfff;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+    padding: 20px;
+
+    background: #04111c;
+
+    color: #9fb3c8;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .home-content h1 {
+        font-size: 38px;
+    }
+
+    .home-content p {
+        font-size: 16px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 220px;
+    }
+}

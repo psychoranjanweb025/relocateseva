@@ -1,0 +1,137 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customers | RelocateSeva</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">Dashboard</a>
+        <a href="pricing-management.html">Pricing Management</a>
+        <a href="services-management.html">Services</a>
+        <a href="bookings.html">Bookings</a>
+        <a href="customers.html" class="active">Customers</a>
+        <a href="reports.html">Reports</a>
+    </nav>
+
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="page-header">
+        <div>
+            <h1>Customers Management</h1>
+            <p>View registered RelocateSeva customers.</p>
+        </div>
+    </header>
+
+    <section class="content-card">
+        <h2>Registered Customers</h2>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+
+                <tbody id="customersTable">
+                    <tr>
+                        <td colspan="5">
+                            Customer records will appear after backend integration.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p id="customerMessage" class="page-message" role="status"></p>
+    </section>
+
+</main>
+
+<script>
+async function loadCustomers() {
+    const tbody = document.getElementById("customersTable");
+    const message = document.getElementById("customerMessage");
+
+    try {
+        const response = await fetch(
+            "http://localhost:5000/api/admin/customers"
+        );
+
+        if (!response.ok) {
+            throw new Error("Customers API is unavailable.");
+        }
+
+        const data = await response.json();
+        const customers = Array.isArray(data)
+            ? data
+            : data.customers;
+
+        if (!Array.isArray(customers)) {
+            throw new Error("Invalid customers response.");
+        }
+
+        tbody.replaceChildren();
+
+        if (customers.length === 0) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = 5;
+            cell.textContent = "No customers found.";
+            return;
+        }
+
+        customers.forEach(customer => {
+            const row = tbody.insertRow();
+
+            [
+                customer._id ?? customer.id ?? "—",
+                customer.name ?? customer.fullName ?? "—",
+                customer.email ?? "—",
+                customer.phone ?? customer.mobile ?? "—",
+                customer.location ?? "—"
+            ].forEach(value => {
+                const cell = row.insertCell();
+                cell.textContent = value;
+            });
+        });
+
+    } catch (error) {
+        message.textContent =
+            "Customers API is not connected yet. No real customer records are displayed.";
+        message.style.color = "#b45309";
+    }
+}
+
+function logoutAdmin() {
+    if (confirm("Are you sure you want to logout?")) {
+        sessionStorage.removeItem("relocateSevaAdminSession");
+        window.location.href = "login.html";
+    }
+}
+
+loadCustomers();
+</script>
+
+</body>
+</html>
+

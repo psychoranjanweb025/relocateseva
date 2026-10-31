@@ -1,0 +1,145 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bookings | RelocateSeva</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">Dashboard</a>
+        <a href="pricing-management.html">Pricing Management</a>
+        <a href="services-management.html">Services</a>
+        <a href="bookings.html" class="active">Bookings</a>
+        <a href="customers.html">Customers</a>
+        <a href="reports.html">Reports</a>
+    </nav>
+
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="page-header">
+        <div>
+            <h1>Bookings Management</h1>
+            <p>Review and manage customer relocation bookings.</p>
+        </div>
+    </header>
+
+    <section class="content-card">
+        <h2>Booking Records</h2>
+
+        <p class="description">
+            Booking records will appear here when the booking API
+            is connected to your backend.
+        </p>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Move Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookingsTable">
+                    <tr>
+                        <td colspan="6">
+                            No booking records loaded. Connect the backend
+                            to display actual customer bookings.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p id="bookingMessage" class="page-message" role="status"></p>
+    </section>
+
+</main>
+
+<script>
+async function loadBookings() {
+    const tbody = document.getElementById("bookingsTable");
+    const message = document.getElementById("bookingMessage");
+
+    try {
+        const response = await fetch(
+            "http://localhost:5000/api/admin/bookings"
+        );
+
+        if (!response.ok) {
+            throw new Error("Bookings API is not available.");
+        }
+
+        const data = await response.json();
+        const bookings = Array.isArray(data)
+            ? data
+            : data.bookings;
+
+        if (!Array.isArray(bookings)) {
+            throw new Error("Invalid bookings response.");
+        }
+
+        tbody.replaceChildren();
+
+        if (bookings.length === 0) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = 6;
+            cell.textContent = "No bookings found.";
+            return;
+        }
+
+        bookings.forEach(booking => {
+            const row = tbody.insertRow();
+
+            [
+                booking.bookingId ?? booking._id ?? "—",
+                booking.customerName ?? "—",
+                booking.serviceName ?? "—",
+                booking.moveDate ?? "—",
+                "₹" + Number(booking.amount ?? 0).toLocaleString("en-IN"),
+                booking.status ?? "Pending"
+            ].forEach(value => {
+                const cell = row.insertCell();
+                cell.textContent = value;
+            });
+        });
+
+    } catch (error) {
+        message.textContent =
+            "Bookings API is not connected yet. No real bookings are being displayed.";
+        message.style.color = "#b45309";
+    }
+}
+
+function logoutAdmin() {
+    if (confirm("Are you sure you want to logout?")) {
+        sessionStorage.removeItem("relocateSevaAdminSession");
+        window.location.href = "login.html";
+    }
+}
+
+loadBookings();
+</script>
+
+</body>
+</html>
+

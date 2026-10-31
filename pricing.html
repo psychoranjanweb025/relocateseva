@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RelocateSeva | Smart Pricing</title>
+
+    <link rel="stylesheet" href="pricing.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Relocate<span>Seva</span>
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="services.html">Services</a>
+
+            
+
+            <a href="safety.html">
+                Safety
+            </a>
+
+            <a href="pricing.html"
+               class="active">
+                Pricing
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+
+<section class="pricing-section">
+
+
+    <!-- ================= TITLE ================= -->
+
+    <div class="heading">
+
+        <span>RELOCATESEVA</span>
+
+        <h1>
+            Smart Moving Price Calculator
+        </h1>
+
+        <p>
+            Enter your moving details and get
+            an estimated relocation cost instantly.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= CALCULATOR ================= -->
+
+    <div class="calculator">
+
+
+        <!-- ================================= -->
+        <!-- STEP 1 : LOCATION -->
+        <!-- ================================= -->
+
+        <div class="step">
+
+            <div class="step-title">
+
+                <span class="step-number">
+                    1
+                </span>
+
+                <div>
+
+                    <h2>
+                        Your Moving Route
+                    </h2>
+
+                    <p>
+                        Tell us where you are moving.
+                    </p>
+
+                </div>
+
+            </div>
+
+<div class="location-grid">
+
+    <div class="form-group">
+        <label>Pickup Location <span>*</span></label>
+
+        <select id="pickup" required>
+            <option value="">Select Pickup Location</option>
+            <option value="Gopalganj">Gopalganj</option>
+            <option value="Thawe">Thawe</option>
+            <option value="Mirganj">Mirganj</option>
+            <option value="Kuchaikote">Kuchaikote</option>
+            <option value="Barauli">Barauli</option>
+            <option value="Hathua">Hathua</option>
+            <option value="Bhore">Bhore</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Drop Location <span>*</span></label>
+
+        <select id="drop" required>
+            <option value="">Select Drop Location</option>
+            <option value="Gopalganj">Gopalganj</option>
+            <option value="Thawe">Thawe</option>
+            <option value="Mirganj">Mirganj</option>
+            <option value="Kuchaikote">Kuchaikote</option>
+            <option value="Barauli">Barauli</option>
+            <option value="Hathua">Hathua</option>
+            <option value="Bhore">Bhore</option>
+        </select>
+    </div>
+
+</div>
+
+
+            <!-- AREA TYPE -->
+
+            <div class="form-group">
+
+                <label>
+                    Area Type
+                    <span>*</span>
+                </label>
+
+                <select id="areaType">
+
+                    <option value="">
+                        Select Area Type
+                    </option>
+
+                    <option value="population">
+                        Population Area
+                    </option>
+
+                    <option value="normal">
+                        Normal Area
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+           
+
+
+
+        <!-- ================================= -->
+        <!-- STEP 2 : HOUSEHOLD ITEMS -->
+        <!-- ================================= -->
+
+        <div class="step">
+
+            <div class="step-title">
+
+                <span class="step-number">
+                    2
+                </span>
+
+                <div>
+
+                    <h2>
+                        Your Household Items
+                    </h2>
+
+                    <p>
+                        Enter the quantity of items you want to move.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+           <!-- HOUSEHOLD ITEMS -->
+
+<div class="items-grid">
+
+    <!-- BED -->
+    <div class="item">
+        <label>🛏️ Bed</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Bed"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- SOFA -->
+    <div class="item">
+        <label>🛋️ Sofa</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Sofa"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- ALMIRAH -->
+    <div class="item">
+        <label>🚪 Almirah</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Almirah"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- TABLE -->
+    <div class="item">
+        <label>🪑 Table</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Table"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- CHAIR -->
+    <div class="item">
+        <label>🪑 Chair</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Chair"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- TV -->
+    <div class="item">
+        <label>📺 TV</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="TV"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- FRIDGE -->
+    <div class="item">
+        <label>🧊 Fridge</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Fridge"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- WASHING MACHINE -->
+    <div class="item">
+        <label>🧺 Washing Machine</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Washing Machine"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- BOXES -->
+    <div class="item">
+        <label>📦 Boxes</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Boxes"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+    <!-- OTHER ITEMS -->
+    <div class="item">
+        <label>📦 Other Items</label>
+        <input
+            type="number"
+            class="item-qty"
+            data-name="Other Items"
+            min="0"
+            value="0"
+            step="1"
+            placeholder="Quantity"
+        >
+    </div>
+
+</div>
+        <!-- ================================= -->
+        <!-- STEP 3 : MOVING CONDITIONS -->
+        <!-- ================================= -->
+
+        <div class="step">
+
+            <div class="step-title">
+
+                <span class="step-number">
+                    3
+                </span>
+
+                <div>
+
+                    <h2>
+                        Moving Conditions
+                    </h2>
+
+                    <p>
+                        These details help us estimate handling cost.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="location-grid">
+
+
+                <!-- PICKUP FLOOR -->
+
+                <div class="form-group">
+
+                    <label>
+                        Pickup Floor
+                    </label>
+
+                    <select id="pickupFloor">
+
+                        <option value="0">
+                            Ground Floor
+                        </option>
+
+                        <option value="100">
+                            1st Floor
+                        </option>
+
+                        <option value="200">
+                            2nd Floor
+                        </option>
+
+                        <option value="300">
+                            3rd Floor
+                        </option>
+
+                        <option value="400">
+                            4th Floor+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DROP FLOOR -->
+
+                <div class="form-group">
+
+                    <label>
+                        Drop Floor
+                    </label>
+
+                    <select id="dropFloor">
+
+                        <option value="0">
+                            Ground Floor
+                        </option>
+
+                        <option value="100">
+                            1st Floor
+                        </option>
+
+                        <option value="200">
+                            2nd Floor
+                        </option>
+
+                        <option value="300">
+                            3rd Floor
+                        </option>
+
+                        <option value="400">
+                            4th Floor+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIFT -->
+
+            <div class="form-group">
+
+                <label>
+                    Is Lift Available?
+                </label>
+
+                <select id="lift">
+
+                    <option value="0">
+                        Yes - Lift Available
+                    </option>
+
+                    <option value="300">
+                        No - Manual Carrying
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================= -->
+        <!-- STEP 4 : SERVICES -->
+        <!-- ================================= -->
+
+        <div class="step">
+
+            <div class="step-title">
+
+                <span class="step-number">
+                    4
+                </span>
+
+                <div>
+
+                    <h2>
+                        Additional Services
+                    </h2>
+
+                    <p>
+                        Select services you need.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PACKING -->
+
+            <div class="service-option">
+
+                <div>
+
+                    <strong>
+                        📦 Full Packing
+                    </strong>
+
+                    <p>
+                        Complete packing of household items.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="packing"
+                        value="800"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- UNPACKING -->
+
+            <div class="service-option">
+
+                <div>
+
+                    <strong>
+                        📦 Unpacking
+                    </strong>
+
+                    <p>
+                        Unpack items at destination.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="unpacking"
+                        value="500"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- DISMANTLING -->
+
+            <div class="service-option">
+
+                <div>
+
+                    <strong>
+                        🔧 Furniture Dismantling
+                    </strong>
+
+                    <p>
+                        Dismantling furniture before moving.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="dismantling"
+                        value="400"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- ASSEMBLY -->
+
+            <div class="service-option">
+
+                <div>
+
+                    <strong>
+                        🔨 Furniture Assembly
+                    </strong>
+
+                    <p>
+                        Assembly after delivery.
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="assembly"
+                        value="400"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================= -->
+        <!-- CALCULATE -->
+        <!-- ================================= -->
+
+        <button
+            class="calculate-btn"
+            onclick="calculatePrice()">
+
+            Calculate My Moving Price
+
+        </button>
+
+
+
+        <!-- ERROR -->
+
+        <div id="errorMessage"></div>
+
+
+
+        <!-- ================================= -->
+        <!-- RESULT -->
+        <!-- ================================= -->
+
+        <div id="result" class="result">
+
+
+            <div class="result-heading">
+
+                <span>
+                    YOUR MOVE QUOTE
+                </span>
+
+                <h2>
+                    Estimated Relocation Cost
+                </h2>
+
+            </div>
+
+
+
+            <!-- ROUTE -->
+
+            <div class="route-summary">
+
+                <div>
+                    📍
+                    <strong id="showPickup">
+                        -
+                    </strong>
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+                <div>
+                    📍
+                    <strong id="showDrop">
+                        -
+                    </strong>
+                </div>
+
+            </div>
+
+
+<!-- AUTOMATIC DISTANCE -->
+
+<div class="form-group">
+
+    <label>
+        Total Moving Distance
+    </label>
+
+    <div class="input-with-unit">
+
+        <input
+            type="text"
+            id="distance"
+            placeholder="Select pickup and drop location"
+            readonly
+        >
+
+        <span>KM</span>
+
+    </div>
+
+    <small id="distanceMessage">
+        Distance will be calculated automatically.
+    </small>
+
+</div>
+
+            <!-- INFO -->
+
+            <div class="price-info">
+
+                <strong>
+                    💡 How is this price calculated?
+                </strong>
+
+                <p>
+                    Travel charge, household items,
+                    floor handling and selected services
+                    are added together to generate your
+                    estimated moving cost.
+                </p>
+
+            </div>
+
+
+
+            <!-- BOOK -->
+
+            <button class="book-btn">
+
+                Continue Booking →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="pricing.js"></script>
+
+
+
+</div>
+<!-- =============== FOOTER SECTION =============== -->
+
+<footer class="pricing-footer">
+
+
+<div class="footer-container">
+
+    <!-- BRAND -->
+    <div class="footer-about">
+
+        <a href="index.html" class="footer-logo">
+            Relocate<span>Seva</span>
+        </a>
+
+        <p class="footer-tagline">
+            Move Easy. Move Safe.
+        </p>
+
+        <p class="footer-description">
+            Making home relocation simple, safe and convenient.
+            Plan your move with RelocateSeva and get an estimated
+            moving cost that suits your needs.
+        </p>
+
+    </div>
+
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+
+        <h3>Quick Links</h3>
+
+        <a href="index.html">Home</a>
+        <a href="services.html">Our Services</a>
+        
+        <a href="safety.html">Safety</a>
+        <a href="pricing.html">Pricing Calculator</a>
+
+    </div>
+
+
+    <!-- OUR SERVICES -->
+    <div class="footer-column">
+
+        <h3>Our Services</h3>
+
+        <a href="services.html">Home Shifting</a>
+        <a href="services.html">Furniture Moving</a>
+        <a href="services.html">Packing Services</a>
+        <a href="services.html">Unpacking Services</a>
+        <a href="services.html">Household Relocation</a>
+
+    </div>
+
+
+    <!-- CUSTOMER SUPPORT -->
+    <div class="footer-column footer-support">
+
+        <h3>Need Help?</h3>
+
+        <p>
+            Have questions about your moving price
+            or additional household items?
+        </p>
+
+        <a href="#extraItems" class="footer-contact-btn">
+            Contact Our Team →
+        </a>
+
+        <p class="footer-support-note">
+            We're here to help you plan your move.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER BOTTOM -->
+<div class="footer-bottom">
+
+    <p>
+        &copy; 2026 RelocateSeva. All Rights Reserved.
+    </p>
+
+    <p class="footer-bottom-tagline">
+        Made for a safer and easier move.
+    </p>
+
+</div>
+
+</footer>
+
+<script src="pricing.js"></script>
+</body>
+</html>
+

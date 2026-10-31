@@ -1,0 +1,189 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RelocateSeva Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <img
+            src="relocate.jpg"
+            alt="RelocateSeva"
+        >
+
+        <button id="logout">
+            Logout
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <section class="welcome">
+
+            <h1>
+                Welcome to RelocateSeva
+            </h1>
+
+            <p>
+                Your relocation journey starts here.
+            </p>
+
+        </section>
+
+
+        <section class="user-card">
+
+            <h2>
+                Your Account
+            </h2>
+
+            <p>
+                <strong>Phone:</strong>
+
+                <span id="phone">
+                    Loading...
+                </span>
+            </p>
+
+            <p>
+                <strong>Gmail:</strong>
+
+                <span id="email">
+                    Loading...
+                </span>
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+
+                <span id="location">
+                    Loading...
+                </span>
+            </p>
+
+        </section>
+
+
+        <section class="services">
+
+            <div>
+                📦
+                <h3>Packing</h3>
+            </div>
+
+            <div>
+                🚚
+                <h3>Transportation</h3>
+            </div>
+
+            <div>
+                🏠
+                <h3>Home Setup</h3>
+            </div>
+
+            <div>
+                🔧
+                <h3>Appliance Setup</h3>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/auth/me",
+                        {
+                            credentials: "include"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+                }
+
+
+                document.getElementById("phone")
+                    .innerText =
+                    data.user.phone;
+
+
+                document.getElementById("email")
+                    .innerText =
+                    data.user.email;
+
+
+                document.getElementById("location")
+                    .innerText =
+                    data.user.locationAllowed
+                        ? "Location Allowed"
+                        : "Not Available";
+
+            }
+            catch (error) {
+
+                window.location.href =
+                    "login.html";
+            }
+        }
+
+
+        document
+            .getElementById("logout")
+            .addEventListener(
+                "click",
+                async function () {
+
+                    await fetch(
+                        "/api/auth/logout",
+                        {
+                            method: "POST",
+                            credentials: "include"
+                        }
+                    );
+
+                    window.location.href =
+                        "login.html";
+                }
+            );
+
+
+        loadUser();
+
+    </script>
+
+</body>
+
+</html>
+

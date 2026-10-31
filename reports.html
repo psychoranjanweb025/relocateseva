@@ -1,0 +1,127 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | RelocateSeva</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">Dashboard</a>
+        <a href="pricing-management.html">Pricing Management</a>
+        <a href="services-management.html">Services</a>
+        <a href="bookings.html">Bookings</a>
+        <a href="customers.html">Customers</a>
+        <a href="reports.html" class="active">Reports</a>
+    </nav>
+
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="page-header">
+        <div>
+            <h1>Business Reports</h1>
+            <p>Monitor bookings and revenue performance.</p>
+        </div>
+    </header>
+
+    <section class="stats-grid">
+
+        <article class="stat-card">
+            <p>Total Bookings</p>
+            <h3 id="reportBookings">—</h3>
+        </article>
+
+        <article class="stat-card">
+            <p>Total Revenue</p>
+            <h3 id="reportRevenue">—</h3>
+        </article>
+
+        <article class="stat-card">
+            <p>Completed Bookings</p>
+            <h3 id="reportCompleted">—</h3>
+        </article>
+
+        <article class="stat-card">
+            <p>Pending Bookings</p>
+            <h3 id="reportPending">—</h3>
+        </article>
+
+    </section>
+
+    <section class="content-card">
+        <h2>Report Summary</h2>
+
+        <p id="reportMessage" class="description">
+            Connect the admin reports API to load actual business data.
+        </p>
+
+        <button class="action-btn" onclick="loadReports()">
+            Refresh Reports
+        </button>
+    </section>
+
+</main>
+
+<script>
+async function loadReports() {
+    const message = document.getElementById("reportMessage");
+
+    try {
+        const response = await fetch(
+            "http://localhost:5000/api/admin/reports"
+        );
+
+        if (!response.ok) {
+            throw new Error("Reports API is not available.");
+        }
+
+        const data = await response.json();
+
+        document.getElementById("reportBookings").textContent =
+            data.totalBookings ?? 0;
+
+        document.getElementById("reportRevenue").textContent =
+            "₹" + Number(data.totalRevenue ?? 0).toLocaleString("en-IN");
+
+        document.getElementById("reportCompleted").textContent =
+            data.completedBookings ?? 0;
+
+        document.getElementById("reportPending").textContent =
+            data.pendingBookings ?? 0;
+
+        message.textContent = "Reports loaded successfully.";
+        message.style.color = "#15803d";
+
+    } catch (error) {
+        message.textContent =
+            "Reports API is not connected yet. Real revenue and booking statistics are unavailable.";
+        message.style.color = "#b45309";
+    }
+}
+
+function logoutAdmin() {
+    if (confirm("Are you sure you want to logout?")) {
+        sessionStorage.removeItem("relocateSevaAdminSession");
+        window.location.href = "login.html";
+    }
+}
+
+loadReports();
+</script>
+
+</body>
+</html>
+

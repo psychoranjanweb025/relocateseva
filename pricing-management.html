@@ -1,0 +1,166 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pricing Management | RelocateSeva</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">Dashboard</a>
+        <a href="pricing-management.html" class="active">Pricing Management</a>
+        <a href="services-management.html">Services</a>
+        <a href="bookings.html">Bookings</a>
+        <a href="customers.html">Customers</a>
+        <a href="reports.html">Reports</a>
+    </nav>
+
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="page-header">
+        <div>
+            <h1>Pricing Management</h1>
+            <p>Manage relocation charges for your customers.</p>
+        </div>
+    </header>
+
+    <section class="content-card">
+        <h2>Update Relocation Pricing</h2>
+
+        <form id="pricingForm" class="management-form">
+
+            <div class="form-group">
+                <label for="basePrice">Base Price (₹)</label>
+                <input type="number" id="basePrice" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="perKmPrice">Price Per KM (₹)</label>
+                <input type="number" id="perKmPrice" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="minimumPrice">Minimum Price (₹)</label>
+                <input type="number" id="minimumPrice" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="floorPrice">Floor Charge (₹)</label>
+                <input type="number" id="floorPrice" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="manualPrice">Manual Carrying Charge (₹)</label>
+                <input type="number" id="manualPrice" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="populationMultiplier">Area Multiplier</label>
+                <input type="number" id="populationMultiplier"
+                       min="0.1" step="0.05" required>
+            </div>
+
+            <div class="full-width">
+                <button class="action-btn" type="submit">
+                    Save Pricing
+                </button>
+
+                <p id="pricingMessage" class="page-message" role="status"></p>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+<script>
+const defaults = {
+    basePrice: 1000,
+    perKmPrice: 25,
+    minimumPrice: 1500,
+    floorPrice: 200,
+    manualPrice: 500,
+    populationMultiplier: 1
+};
+
+const pricingForm = document.getElementById("pricingForm");
+const pricingMessage = document.getElementById("pricingMessage");
+
+try {
+    const saved = JSON.parse(
+        localStorage.getItem("relocateSevaPricing") || "{}"
+    );
+
+    Object.entries({...defaults, ...saved}).forEach(([key, value]) => {
+        document.getElementById(key).value = value;
+    });
+} catch (error) {
+    Object.entries(defaults).forEach(([key, value]) => {
+        document.getElementById(key).value = value;
+    });
+}
+
+pricingForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const pricing = {};
+
+    for (const key of Object.keys(defaults)) {
+        const input = document.getElementById(key);
+        const value = Number(input.value);
+
+        if (
+            input.value.trim() === "" ||
+            !Number.isFinite(value) ||
+            value < 0 ||
+            (key === "populationMultiplier" && value <= 0)
+        ) {
+            pricingMessage.textContent = "Please enter valid values.";
+            pricingMessage.style.color = "#dc2626";
+            return;
+        }
+
+        pricing[key] = value;
+    }
+
+    try {
+        localStorage.setItem(
+            "relocateSevaPricing",
+            JSON.stringify(pricing)
+        );
+
+        pricingMessage.textContent =
+            "Pricing saved successfully in this browser.";
+
+        pricingMessage.style.color = "#15803d";
+
+    } catch (error) {
+        pricingMessage.textContent = "Could not save pricing.";
+        pricingMessage.style.color = "#dc2626";
+    }
+});
+
+function logoutAdmin() {
+    if (confirm("Are you sure you want to logout?")) {
+        sessionStorage.removeItem("relocateSevaAdminSession");
+        window.location.href = "login.html";
+    }
+}
+</script>
+
+</body>
+</html>
+

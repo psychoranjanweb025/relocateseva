@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>RelocateSeva | Admin Dashboard</title>
+
+<link rel="stylesheet" href="admin.css">
+```
+
+</head>
+<body>
+
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+<nav class="menu">
+    <a href="admin.html" class="active">Dashboard</a>
+
+    <a href="pricing-management.html">
+        Pricing Management
+    </a>
+
+    <a href="services-management.html">
+        Services
+    </a>
+
+    <a href="bookings.html">
+        Bookings
+    </a>
+
+    <a href="customers.html">
+        Customers
+    </a>
+
+    <a href="reports.html">
+        Reports
+    </a>
+</nav>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage your RelocateSeva project</p>
+        </div>
+
+        <span class="admin-badge">Administrator</span>
+    </header>
+
+    <section id="dashboard">
+        <h2 class="section-title">Overview</h2>
+
+        <div class="stats-grid">
+            <article class="stat-card">
+                <p>Total Bookings</p>
+                <h3 id="totalBookings">—</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Total Customers</p>
+                <h3 id="totalCustomers">—</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Total Revenue</p>
+                <h3 id="totalRevenue">—</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Active Services</p>
+                <h3 id="totalServices">—</h3>
+            </article>
+        </div>
+
+        <p class="notice">
+            Dashboard statistics will appear after the backend is connected.
+        </p>
+    </section>
+
+    <section id="pricing" class="panel">
+        <h2 class="section-title">Pricing Management</h2>
+
+        <p class="description">
+            Change relocation charges from one place.
+        </p>
+
+        <form id="pricingForm">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="basePrice">Base Price (₹)</label>
+                    <input type="number" id="basePrice"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="perKmPrice">Price Per KM (₹)</label>
+                    <input type="number" id="perKmPrice"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="minimumPrice">Minimum Price (₹)</label>
+                    <input type="number" id="minimumPrice"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="floorPrice">Floor Handling Per Floor (₹)</label>
+                    <input type="number" id="floorPrice"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualPrice">Manual Carrying Charge (₹)</label>
+                    <input type="number" id="manualPrice"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="populationMultiplier">
+                        Population Area Multiplier
+                    </label>
+                    <input type="number" id="populationMultiplier"
+                           min="0.1" step="0.05" required>
+                </div>
+            </div>
+
+            <button type="submit" class="save-btn">
+                Save Pricing
+            </button>
+
+            <p id="pricingMessage" class="message" role="status"></p>
+
+        </form>
+    </section>
+
+    <section id="services" class="panel">
+        <h2 class="section-title">Services Management</h2>
+        <p class="description">
+            Services management will be connected to the backend in the next step.
+        </p>
+    </section>
+
+    <section id="bookings" class="panel">
+        <h2 class="section-title">Bookings</h2>
+        <p class="description">
+            Customer bookings will appear here after backend integration.
+        </p>
+    </section>
+
+    <section id="customers" class="panel">
+        <h2 class="section-title">Customers</h2>
+        <p class="description">
+            Registered customer information will appear here after integration.
+        </p>
+    </section>
+
+    <section id="reports" class="panel">
+        <h2 class="section-title">Reports</h2>
+        <p class="description">
+            Booking and revenue reports will be added after the data APIs are ready.
+        </p>
+    </section>
+
+</main>
+
+<script src="admin.js"></script>
+```
+
+</body>
+</html>

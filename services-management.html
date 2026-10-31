@@ -1,0 +1,222 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Services Management | RelocateSeva</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Relocate<span>Seva</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">Dashboard</a>
+        <a href="pricing-management.html">Pricing Management</a>
+        <a href="services-management.html" class="active">Services</a>
+        <a href="bookings.html">Bookings</a>
+        <a href="customers.html">Customers</a>
+        <a href="reports.html">Reports</a>
+    </nav>
+
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+</aside>
+
+<main class="main-content">
+
+    <header class="page-header">
+        <div>
+            <h1>Services Management</h1>
+            <p>Add and manage relocation services.</p>
+        </div>
+    </header>
+
+    <section class="content-card">
+        <h2>Add New Service</h2>
+
+        <form id="serviceForm" class="management-form">
+
+            <div class="form-group">
+                <label for="serviceName">Service Name</label>
+                <input type="text" id="serviceName"
+                       placeholder="e.g. Home Relocation" required>
+            </div>
+
+            <div class="form-group">
+                <label for="servicePrice">Starting Price (₹)</label>
+                <input type="number" id="servicePrice"
+                       min="0" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="serviceDescription">Description</label>
+                <textarea id="serviceDescription" rows="3"
+                          placeholder="Describe the service" required></textarea>
+            </div>
+
+            <div class="full-width">
+                <button class="action-btn" type="submit">Add Service</button>
+                <p id="serviceMessage" class="page-message" role="status"></p>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="content-card">
+        <h2>Available Services</h2>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Description</th>
+                        <th>Starting Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="servicesTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const initialServices = [
+    {
+        id: 1,
+        name: "Home Relocation",
+        description: "Complete household shifting.",
+        price: 1500
+    },
+    {
+        id: 2,
+        name: "Office Relocation",
+        description: "Office furniture and equipment shifting.",
+        price: 3000
+    },
+    {
+        id: 3,
+        name: "Packing Services",
+        description: "Packing and protection of household items.",
+        price: 500
+    }
+];
+
+function getServices() {
+    try {
+        const saved = localStorage.getItem("relocateSevaServices");
+
+        if (saved !== null) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed)) return parsed;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+
+    return initialServices;
+}
+
+let services = getServices();
+
+function renderServices() {
+    const tbody = document.getElementById("servicesTable");
+    tbody.replaceChildren();
+
+    services.forEach(service => {
+        const row = document.createElement("tr");
+
+        [
+            service.name,
+            service.description,
+            "₹" + Number(service.price).toLocaleString("en-IN")
+        ].forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
+
+        deleteButton.type = "button";
+        deleteButton.className = "action-btn danger-btn";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", () => {
+            if (!confirm("Delete this service?")) return;
+
+            services = services.filter(item => item.id !== service.id);
+            saveServices();
+            renderServices();
+        });
+
+        actionCell.appendChild(deleteButton);
+        row.appendChild(actionCell);
+        tbody.appendChild(row);
+    });
+}
+
+function saveServices() {
+    try {
+        localStorage.setItem(
+            "relocateSevaServices",
+            JSON.stringify(services)
+        );
+    } catch (error) {
+        alert("Could not save services in browser storage.");
+    }
+}
+
+document.getElementById("serviceForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const name = document.getElementById("serviceName").value.trim();
+    const description = document.getElementById("serviceDescription").value.trim();
+    const priceInput = document.getElementById("servicePrice");
+    const price = Number(priceInput.value);
+    const message = document.getElementById("serviceMessage");
+
+    if (!name || !description || priceInput.value.trim() === "" ||
+        !Number.isFinite(price) || price < 0) {
+        message.textContent = "Please enter valid service details.";
+        message.style.color = "#dc2626";
+        return;
+    }
+
+    services.push({
+        id: Date.now(),
+        name,
+        description,
+        price
+    });
+
+    saveServices();
+    renderServices();
+    event.target.reset();
+
+    message.textContent = "Service added successfully in this browser.";
+    message.style.color = "#15803d";
+});
+
+function logoutAdmin() {
+    if (confirm("Are you sure you want to logout?")) {
+        sessionStorage.removeItem("relocateSevaAdminSession");
+        window.location.href = "login.html";
+    }
+}
+
+renderServices();
+</script>
+
+</body>
+</html>
+
